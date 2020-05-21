@@ -42,3 +42,13 @@ export interface ICategory {
   code : string;
 }
 
+export interface IUserInfo{
+  username:string
+}
+
+export class UserInfo implements IUserInfo {
+  public username;
+  constructor(username:string ) {
+    this.username=username;
+  }
+}

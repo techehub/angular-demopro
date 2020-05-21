@@ -9,6 +9,7 @@ import { Service } from '../service';
 import { ICategory } from '../product';
 import { AuthServiceService } from '../auth-service.service';
 import {Router} from '@angular/router'
+import { MyAccountService } from '../my-account.service';
 
 @Component({
   selector: 'app-header',
@@ -23,8 +24,13 @@ export class HeaderComponent implements OnInit {
   category: Observable<Category[]>;
 
 
-  constructor( private router : Router,private authService: AuthServiceService, private service:Service, private store: Store<{ category: Category[] }>) {
-    this.category = store.pipe(select('category'));
+  constructor( private router : Router,
+    private authService: AuthServiceService,
+     private service:Service,
+     private myAccountService: MyAccountService,
+     private store: Store<{ category: Category[] }>) {
+
+      this.category = store.pipe(select('category'));
 
 
   }
@@ -51,4 +57,14 @@ export class HeaderComponent implements OnInit {
      this.authService.logout();
      this.router.navigate(['home'])
    }
+
+   public getAccountInfo (){
+    this.myAccountService.getAccountInfo().subscribe(
+      (res)=>{
+
+        console.log ("Got userinfo called")
+      }
+    );
+  }
+
 }

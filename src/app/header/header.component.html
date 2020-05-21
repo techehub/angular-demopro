@@ -38,6 +38,9 @@
 
     <ul class="navbar-nav mr-auto" *ngIf="isLoggedIn()">
       <li class="nav-item active">
+        <a class="nav-link"  routerLink="/myaccount" routerLinkActive="active" (click)="getAccountInfo()" >My Account</a>
+      </li>
+      <li class="nav-item active">
         <a class="nav-link"  routerLink="/home" routerLinkActive="active" (click)="logout()" >Sign Out</a>
       </li>
     </ul>

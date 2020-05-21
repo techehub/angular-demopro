@@ -9,12 +9,15 @@ import { FooterComponent } from './footer/footer.component';
 import { StoreModule } from '@ngrx/store';
 import { CategoryReducer } from './category.reducer';
 import {Service} from './service';
-import {HttpClientModule} from '@angular/common/http';
+import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import { HomeComponent } from './home/home.component';
 import { ProductlistComponent } from './productlist/productlist.component';
 import { SignupComponent } from './signup/signup.component';
 import { ProductinfoComponent } from './productinfo/productinfo.component'
-import {FormsModule} from '@angular/forms'
+import {FormsModule} from '@angular/forms';
+import { MyAccountComponent } from './my-account/my-account.component'
+import { AuthServiceService } from './auth-service.service';
+import { AuthInterceptor } from './auth-interceptor';
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,7 +27,8 @@ import {FormsModule} from '@angular/forms'
     HomeComponent,
     ProductlistComponent,
     SignupComponent,
-    ProductinfoComponent
+    ProductinfoComponent,
+    MyAccountComponent
   ],
   imports: [
     BrowserModule,
@@ -33,7 +37,8 @@ import {FormsModule} from '@angular/forms'
     FormsModule,
     StoreModule.forRoot({ category: CategoryReducer })
   ],
-  providers: [Service],
+  providers: [ { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    Service, AuthServiceService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
