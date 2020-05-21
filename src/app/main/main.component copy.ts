@@ -20,6 +20,39 @@ export class MainComponent implements OnInit {
     this.category = store.pipe(select('category'));
   }
   ngOnInit(): void {
+    this.category.subscribe(()=>{
+
+     let x= this.store
+      .pipe(
+         select('category'),
+         take(1)
+      );
+
+
+     x.forEach (e => {
+       if ( e != undefined && e.length==1){
+
+
+       // console.log (e[0])
+
+       this.service.getProducts(e[0]).subscribe(response =>
+        {
+          this.products = response.map(item =>
+          {
+            return new Product(
+                item.id,
+                item.name
+            );
+          });
+        });
+
+
+      }
+
+      })
+
+
+    })
 
   }
 

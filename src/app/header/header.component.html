@@ -5,7 +5,7 @@
  <nav class="navbar navbar-expand-lg navbar-dark primary-color">
 
    <!-- Navbar brand -->
-   <a class="navbar-brand" href="#">Navbar</a>
+   <a class="navbar-brand" href="#">eShopee</a>
 
    <!-- Collapse button -->
    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav"
@@ -17,14 +17,30 @@
    <div class="collapse navbar-collapse" id="basicExampleNav">
 
 
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" routerLink="/home" routerLinkActive="active">Home</a>
+
+      </li>
+    </ul>
      <!-- Links -->
      <ul class="navbar-nav mr-auto" *ngFor="let item of categories">
        <li class="nav-item active">
-         <a class="nav-link" href="#"  (click)="selectCatagory(item.code)">{{item.name}}</a>
+         <a class="nav-link"  routerLink="/productlist" routerLinkActive="active" (click)="selectCatagory(item.code)">{{item.name}}</a>
        </li>
-
-
      </ul>
+
+    <ul class="navbar-nav mr-auto" *ngIf="!isLoggedIn()">
+      <li class="nav-item active">
+        <a class="nav-link"  routerLink="/signup" routerLinkActive="active" >Sign In</a>
+      </li>
+    </ul>
+
+    <ul class="navbar-nav mr-auto" *ngIf="isLoggedIn()">
+      <li class="nav-item active">
+        <a class="nav-link"  routerLink="/home" routerLinkActive="active" (click)="logout()" >Sign Out</a>
+      </li>
+    </ul>
      <!-- Links -->
 
      <form class="form-inline">

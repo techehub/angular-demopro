@@ -7,6 +7,8 @@ import {select, Store} from '@ngrx/store';
 import { CategorySelected } from '../category.actions';
 import { Service } from '../service';
 import { ICategory } from '../product';
+import { AuthServiceService } from '../auth-service.service';
+import {Router} from '@angular/router'
 
 @Component({
   selector: 'app-header',
@@ -20,8 +22,11 @@ export class HeaderComponent implements OnInit {
   categories : Category []=null;
   category: Observable<Category[]>;
 
-  constructor(private service:Service, private store: Store<{ category: Category[] }>) {
+
+  constructor( private router : Router,private authService: AuthServiceService, private service:Service, private store: Store<{ category: Category[] }>) {
     this.category = store.pipe(select('category'));
+
+
   }
 
   selectCatagory(categoryName: string) {
@@ -32,9 +37,18 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
      this.service.getCategories().subscribe( (data)=>{
      this.categories=data
     })
+   }
 
+   isLoggedIn():boolean {
+    return this.authService.loggedIn();
+   }
+
+   logout(){
+     this.authService.logout();
+     this.router.navigate(['home'])
    }
 }

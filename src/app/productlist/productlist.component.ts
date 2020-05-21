@@ -5,13 +5,12 @@ import {select, Store} from '@ngrx/store';
 import { take } from 'rxjs/operators';
 import {  Service } from '../service';
 import { Product, IProduct } from '../product';
-
 @Component({
-  selector: 'app-main',
-  templateUrl: './main.component.html',
-  styleUrls: ['./main.component.css']
+  selector: 'app-productlist',
+  templateUrl: './productlist.component.html',
+  styleUrls: ['./productlist.component.css']
 })
-export class MainComponent implements OnInit {
+export class ProductlistComponent implements OnInit {
 
   category: Observable<Category[]>;
   products :IProduct[]
@@ -20,18 +19,37 @@ export class MainComponent implements OnInit {
     this.category = store.pipe(select('category'));
   }
   ngOnInit(): void {
+    this.category.subscribe(()=>{
+
+     let x= this.store
+      .pipe(
+         select('category')
+      );
+
+
+     x.forEach (e => {
+       if ( e != undefined && e.length==1){
+
+       console.log (e[0])
+
+       this.service.getProducts(e[0]).subscribe(response =>
+        {
+          this.products=response;
+
+        });
+
+
+      }
+
+      })
+
+
+    })
 
   }
 
 
 }
-
-
-
-
-
-
-
 
 
 

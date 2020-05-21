@@ -9,19 +9,28 @@ import { FooterComponent } from './footer/footer.component';
 import { StoreModule } from '@ngrx/store';
 import { CategoryReducer } from './category.reducer';
 import {Service} from './service';
-import {HttpClientModule} from '@angular/common/http'
-
+import {HttpClientModule} from '@angular/common/http';
+import { HomeComponent } from './home/home.component';
+import { ProductlistComponent } from './productlist/productlist.component';
+import { SignupComponent } from './signup/signup.component';
+import { ProductinfoComponent } from './productinfo/productinfo.component'
+import {FormsModule} from '@angular/forms'
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     MainComponent,
-    FooterComponent
+    FooterComponent,
+    HomeComponent,
+    ProductlistComponent,
+    SignupComponent,
+    ProductinfoComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    FormsModule,
     StoreModule.forRoot({ category: CategoryReducer })
   ],
   providers: [Service],
